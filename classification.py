@@ -16,7 +16,7 @@ print(data.describe())
 # X = 'Age', 'SibSp', 'Parch'
 
 y = data['Survived']
-X = data[['Age', 'SibSp', 'Parch']]
+X = data[['Age', 'SibSp', 'Parch','Pclass']]
 
 X = X.fillna(X.mean()) # remove the missing values, we are loosing data
                        #.min, .max
