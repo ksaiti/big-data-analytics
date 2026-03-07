@@ -1,14 +1,15 @@
-# everytime that I need to commit changes
-git init 
+## Everytime that we need to commit changes
 
-git add .
+git init
 
-git config user.email "email" # once (as it is in GitHub)
+git add . 
 
-git config user.name "name" # once (as it is in GitHub)
+*Only the first time* : git config user.email "your email here"
 
-git commit -m "message related to the update"
+*Only the first time* : git config user.name "your name here"
 
-git push -u origin main (-u only the first time that I commit smth)
+git commit -m "Your message here"
 
-git push origin main 
+git push -u origin main *(-u only the 1st time that we commit something)*
+
+git push 

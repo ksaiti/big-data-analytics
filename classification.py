@@ -4,50 +4,53 @@ from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, confusion_matrix
 
-# load dataset
+# Load dataset
 
-data = pd.read_csv('data/titanic.csv')
+df = pd.read_csv('data/titanic.csv')
 
-print(data.info())
-print(data.describe())
+print(df.info())
+print(df.describe())
 
-# features and target
-# y = Survived
-# X = 'Age', 'SibSp', 'Parch'
+print(df.head())
 
-y = data['Survived']
-X = data[['Age', 'SibSp', 'Parch','Pclass']]
+# Features and target
+# y = 'Survived'
+# x = 'Age', 'Sibsp', 'Parch'
 
-X = X.fillna(X.mean()) # remove the missing values, we are loosing data
-                       #.min, .max
+y = df['Survived']
+X = df[['Age','SibSp','Parch','Pclass']]
 
-# split the data
+X = X.fillna(X.mean()) # if we remove the missing values, we lose too much data
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+# Split the data
 
-# train the classifier
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the classifier
+
 model = LogisticRegression()
+
 model.fit(X_train, y_train)
 
-#predictions 
+# Predictions
 
-predictions = model.predict(X_test)
+prediction = model.predict(X_test)
 
-# accuracy
-accuracy = accuracy_score(y_test, predictions)
+# Accuracy
+
+accuracy = accuracy_score(y_test, prediction)
+
 print(accuracy)
 
-# confusion matrix
+# Confusion matrix
 
-cm = confusion_matrix(y_test, predictions)
-
+cm = confusion_matrix(y_test, prediction)
 print(cm)
 
 # plot the confusion matrix
 
 plt.imshow(cm)
-
-plt.title("Confusion Matrix")
+plt.title("Consufion Matrix")
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 

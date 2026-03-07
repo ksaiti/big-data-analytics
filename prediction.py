@@ -7,6 +7,7 @@ from sklearn.metrics import root_mean_squared_error
 import matplotlib.pyplot as plt
 
 
+
 ## predict house prices (data/housing.csv)
 
 data = pd.read_csv("data/housing.csv")
@@ -22,66 +23,56 @@ print(data.columns)
 
 print(data.describe())
 
-# features and target 
-# features --> inputs to the model (region, year, number of rooms etc.) X matrix  
-# target  --> the house price  y vector [100.000, 200.000, 300.000, etc, etc]
+# Features and target
+# Features -> inputs to the model (region, year, number of rooms etc.) X matrix 
+# Target -> the house price y vector [100.000, 200.000, 300.000]
 
+X = data[['sqft_living', 'bedrooms', 'bathrooms', 'yr_built', 'yr_renovated', 
+            'sqft_basement']]
 y = data['price']
-X = data[['sqft_living','bedrooms','bathrooms', 'yr_built', 'yr_renovated', 'sqft_basement']]
 
-# features = [
-#      'bedrooms',
-#     'bathrooms',
-#      'sqft_living',
-#       'etc.']
-# X = data[features]
+"""
+features = [
+        'bedrooms',
+        'bathrooms',
+        'sqft_living,
+        'etc...'
+]
 
-# if you want to use all data as features except the target, you can use function drop
-# X = data.drop('price')
+x = data[features]
+"""
 
-# split the dataset to Train/Test
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42)
+# Split the dataset to Train/Test
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=84)
 
 model = LinearRegression()
-model.fit(X_train,y_train)
+model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
-print(predictions)
 
-# evaluation of the model 
+# Evaluation of the model
 
 mse = mean_squared_error(y_test, predictions)
-print(mse)
-
-mae = mean_absolute_error(y_test, predictions)
-print(mae)
-
 rmse = root_mean_squared_error(y_test, predictions)
-print(rmse) # 270.000 
+mae = mean_absolute_error(y_test, predictions)
 
-# plot Actual vs Predicted
+print(f"Mean Squared error: {mse}")
+print(f"Root Mean Squared error: {rmse}")
+print(f"Mean Absolute error: {mae}")
+
+
+# Plot Actual vs Predicted
 
 plt.figure(figsize=(10,5))
 
-plt.plot(y_test.values[:50], label="Actual Prices") # x
-plt.plot(predictions[:50], label="Predicted Prices") # y
-
+plt.plot(y_test.values[:100], label = "Actual Prices")
+plt.plot(predictions[:100], label = "Predicted Prices")
 
 plt.title("Actual vs Predicted")
-plt.xlabel("House index")
+plt.xlabel("House Index")
 plt.ylabel("Price")
 
 plt.legend()
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
